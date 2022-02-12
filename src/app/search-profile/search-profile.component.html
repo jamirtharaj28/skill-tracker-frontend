@@ -1,0 +1,70 @@
+<div>
+    <h1>Search Profile</h1>
+    <div class="seach-container">
+        <form [formGroup]="searchForm" (ngSubmit)="search()">
+            <div class="form-group">
+                <div class="search-options">
+                    <label>
+                        <input
+                            type="radio"
+                            value="name"
+                            name="searchby"
+                            formControlName="searchby"
+                            (change)="searchForm.value.searchvalue=''"
+                        />
+                        Name</label>
+                    <label>
+                        <input
+                            type="radio"
+                            value="id"
+                            name="searchby"
+                            formControlName="searchby"
+                            (change)="searchForm.value.searchvalue=''"
+                        />
+                        Asociate Id</label>
+                    <label>
+                        <input
+                            type="radio"
+                            value="skill"
+                            name="searchby"
+                            formControlName="searchby"
+                            (change)="searchForm.value.searchvalue=''"
+                        />
+                        Skill</label>
+                </div>
+                <div class="seach-input-container" 
+                    *ngIf="searchForm.value.searchby=='name'">
+                    <label>Name</label>
+                    <input type="text" 
+                        class="search-input"
+                        formControlName="searchvalue"/>
+                </div>
+                <div class="seach-input-container" *ngIf="searchForm.value.searchby=='id'">
+                    <label>Associate Id</label>
+                    <input type="text"
+                        class="search-input"
+                        formControlName="searchvalue"/>
+                </div>
+                <div class="seach-input-container" *ngIf="searchForm.value.searchby=='skill'">
+                    <label>Skill</label>
+                    <select 
+                        class="search-input"
+                        formControlName="searchvalue">
+                        <option *ngFor="let item of skills" >{{item?.name}}</option>
+                    </select>
+                </div>
+                <button type="submit" [disabled]="!searchForm.valid">Search</button>
+            </div>
+        </form>
+    </div>
+    <div class="search-result">
+        <div class="search-result-item"
+            *ngFor="let profile of profiles">
+            <app-profile-detail 
+                [profile]="profile" ></app-profile-detail>
+        </div>
+        <div *ngIf="searchPerformed && profiles.length == 0" >
+            No matching records found
+        </div>
+    </div>
+</div>

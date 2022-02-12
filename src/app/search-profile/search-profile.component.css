@@ -1,0 +1,25 @@
+.search-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 225px;
+    margin-bottom: 10px;;
+}
+
+.seach-input-container {
+    display: flex;
+    flex-direction: row;
+    width: 250px;
+    margin-bottom: 10px;;
+}
+
+.search-input {
+    margin-left: 5px;
+}
+
+.search-result-item {
+    border: 1px solid lightblue;
+    margin-bottom: 5px;;
+    padding: 3px;;
+}
+

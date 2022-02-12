@@ -1,0 +1,38 @@
+<div>
+    <div>
+        <div class="row">
+            <div>
+                <label>Name:  {{profile?.name}}</label>
+            </div>
+            <div>
+                <label>Associate Id: {{profile?.empId}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <label>Mobile: {{profile?.mobile}}</label>
+            </div>
+            <div>
+                <label>Email: {{profile?.email}}</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <h4>Technical Skills</h4>
+            <ul>
+                <li *ngFor="let item of getSkills(true)">
+                    {{item.name}} - {{item.proficiency}}
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h4>Non-technical Skills</h4>
+            <ul>
+                <li *ngFor="let item of getSkills(false)">
+                    {{item.name}} - {{item.proficiency}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
