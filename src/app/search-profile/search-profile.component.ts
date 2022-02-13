@@ -52,10 +52,15 @@ export class SearchProfileComponent implements OnInit {
     /// Mocking code to check the functionality. For Real Scenario the below searchService code will be called.
     if (payload.empId)
          this.profiles=mockprofiles.filter( Profile => Profile.empId === payload.empId);
+
+    //payload name
     else if(payload.name)
           this.profiles=mockprofiles.filter( Profile => Profile.name === payload.name);
+
+    //payload skill
     else
-       this.profiles=mockprofiles.filter( Profile=> Profile.skills.filter(UserSkill => UserSkill.name==payload.skill));
+       this.profiles=mockprofiles.filter( Profile=> Profile.skills.filter(UserSkill => UserSkill.name==payload.skill)[0].name==payload.skill);
+
 
     this._searchService.search(payload).subscribe(
       res => {      
