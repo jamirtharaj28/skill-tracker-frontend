@@ -13,22 +13,21 @@ export class SearchProfileComponent implements OnInit {
 
   searchPerformed = false;
   searchForm: FormGroup;
-  profiles: Profile[] = [];
+  profiles: Profile[] = mockprofiles;// Replace this mockprofiles with empty array when calling service
   skills = [
-    {    id: 0,    name: ''  },
-    {    id: 1,    name: 'Angular'  },
-    {    id: 2,    name: 'React'  },
-    {    id: 3,    name: 'Java'  },
-    {    id: 4,    name: '.NET'  },
-    {    id: 5,    name: 'Vue'  },
-    {    id: 6,    name: 'MongoDB'  },
-    {    id: 7,    name: 'Node'  },
-    {    id: 8,    name: 'Javascript'  },
-    {    id: 51,    name: 'Communication'  },
-    {    id: 52,    name: 'Domain Skills'  },
-    {    id: 53,    name: 'Leadership'  },,
-    {    id: 54,    name: 'Critical Thinking'  },
-    {    id: 55,    name: 'Problem Solving'  },
+    { Id: 1, name: 'HTML-CSS-JAVASCRIPT' },
+    { Id: 2, name: 'ANGULAR'},
+    { Id: 3, name: 'REACT' },
+    { Id: 4, name: 'SPRING' },
+    { Id: 5, name: 'RESTFUL' },
+    { Id: 6, name: 'HIBERNATE' },
+    { Id: 7, name: 'GIT' },
+    { Id: 8, name: 'DOCKER'},
+    { Id: 9, name: 'JENKINS' },    
+    { Id: 10, name: 'AWS' },    
+    { Id: 11, name: 'SPOKEN'},    
+    { Id: 12, name: 'COMMUNICATION' } ,    
+    { Id: 13, name: 'APTITUDE' }
 ];
 
   constructor(
@@ -50,9 +49,17 @@ export class SearchProfileComponent implements OnInit {
       "name": this.searchForm.value.searchby == "name" ? this.searchForm.value.searchvalue :  "",
       "skill": this.searchForm.value.searchby == "skill" ? this.searchForm.value.searchvalue :  "",
     }
+    /// Mocking code to check the functionality. For Real Scenario the below searchService code will be called.
+    if (payload.empId)
+         this.profiles=mockprofiles.filter( Profile => Profile.empId === payload.empId);
+    else if(payload.name)
+          this.profiles=mockprofiles.filter( Profile => Profile.name === payload.name);
+    else
+       this.profiles=mockprofiles.filter( Profile=> Profile.skills.filter(UserSkill => UserSkill.name==payload.skill));
+
     this._searchService.search(payload).subscribe(
-      res => {
-      
+      res => {      
+        
         this.profiles = res;
         this.searchPerformed = true;
       },
