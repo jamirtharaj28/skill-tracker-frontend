@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { mockprofiles } from '../mock-profiles';
 import { Profile } from '../models/profile';
 import { SearchService } from '../services/search.service';
 
@@ -51,6 +52,7 @@ export class SearchProfileComponent implements OnInit {
     }
     this._searchService.search(payload).subscribe(
       res => {
+      
         this.profiles = res;
         this.searchPerformed = true;
       },
