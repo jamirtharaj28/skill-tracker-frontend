@@ -10,7 +10,7 @@
                             value="name"
                             name="searchby"
                             formControlName="searchby"
-                            (change)="searchForm.value.searchvalue=''"
+                            (change)="onSearchOptionChange()"
                         />
                         Name</label>
                     <label>
@@ -19,7 +19,7 @@
                             value="id"
                             name="searchby"
                             formControlName="searchby"
-                            (change)="searchForm.value.searchvalue=''"
+                            (change)="onSearchOptionChange()"
                         />
                         Asociate Id</label>
                     <label>
@@ -28,42 +28,35 @@
                             value="skill"
                             name="searchby"
                             formControlName="searchby"
-                            (change)="searchForm.value.searchvalue=''"
+                            (change)="onSearchOptionChange()"
                         />
                         Skill</label>
                 </div>
-                <div class="seach-input-container" 
-                    *ngIf="searchForm.value.searchby=='name'">
+                <div class="seach-input-container" *ngIf="searchForm.value.searchby=='name'">
                     <label>Name</label>
-                    <input type="text" 
-                        class="search-input"
-                        formControlName="searchvalue"/>
+                    <input type="text" class="search-input" formControlName="searchvalue" />
+                    <button type="submit" class="search" [disabled]="!searchForm.valid">Search</button>
                 </div>
                 <div class="seach-input-container" *ngIf="searchForm.value.searchby=='id'">
                     <label>Associate Id</label>
-                    <input type="text"
-                        class="search-input"
-                        formControlName="searchvalue"/>
+                    <input type="text" class="search-input" formControlName="searchvalue" />
+                    <button type="submit" class="search" [disabled]="!searchForm.valid">Search</button>
                 </div>
                 <div class="seach-input-container" *ngIf="searchForm.value.searchby=='skill'">
                     <label>Skill</label>
-                    <select 
-                        class="search-input"
-                        formControlName="searchvalue">
+                    <select class="search-input" formControlName="searchvalue">
                         <option *ngFor="let item of skills" >{{item?.name}}</option>
                     </select>
+                    <button type="submit" class="search" [disabled]="!searchForm.valid">Search</button>
                 </div>
-                <button type="submit" [disabled]="!searchForm.valid">Search</button>
             </div>
         </form>
     </div>
     <div class="search-result">
-        <div class="search-result-item"
-            *ngFor="let profile of profiles">
-            <app-profile-detail 
-                [profile]="profile" ></app-profile-detail>
+        <div class="search-result-item" *ngFor="let profile of profiles">
+            <app-profile-detail [profile]="profile"></app-profile-detail>
         </div>
-        <div *ngIf="searchPerformed && profiles.length == 0" >
+        <div *ngIf="searchPerformed && profiles.length == 0">
             No matching records found
         </div>
     </div>

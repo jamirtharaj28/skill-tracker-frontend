@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { mockprofiles } from '../mock-profiles';
 import { Profile } from '../models/profile';
 import { SearchService } from '../services/search.service';
 
@@ -13,34 +12,29 @@ export class SearchProfileComponent implements OnInit {
 
   searchPerformed = false;
   searchForm: FormGroup;
-  profiles: Profile[] = mockprofiles;// Replace this mockprofiles with empty array when calling service
-  skills = [
-    { Id: 1, name: 'HTML-CSS-JAVASCRIPT' },
-    { Id: 2, name: 'ANGULAR'},
-    { Id: 3, name: 'REACT' },
-    { Id: 4, name: 'SPRING' },
-    { Id: 5, name: 'RESTFUL' },
-    { Id: 6, name: 'HIBERNATE' },
-    { Id: 7, name: 'GIT' },
-    { Id: 8, name: 'DOCKER'},
-    { Id: 9, name: 'JENKINS' },    
-    { Id: 10, name: 'AWS' },    
-    { Id: 11, name: 'SPOKEN'},    
-    { Id: 12, name: 'COMMUNICATION' } ,    
-    { Id: 13, name: 'APTITUDE' }
-];
+  profiles: Profile[] = [];
+  skills: any[] = [];
 
   constructor(
     private _formBuilder: FormBuilder,
     private _searchService: SearchService
-  ) { 
+  ) {
     this.searchForm = _formBuilder.group({
-      searchby: ['name', Validators.required],      
+      searchby: ['name', Validators.required],
       searchvalue: ['', Validators.required]
     });
+    this.skills = this._searchService.getSkills();
   }
 
   ngOnInit(): void {
+  }
+
+  onSearchOptionChange(){
+    this.searchPerformed = false;
+    this.searchForm.patchValue({searchvalue : ''});
+      if(this.searchForm.value.searchby == 'skill'){
+        this.searchForm.patchValue({searchvalue: this.skills[0].name });
+      }
   }
 
   search() {
@@ -49,29 +43,15 @@ export class SearchProfileComponent implements OnInit {
       "name": this.searchForm.value.searchby == "name" ? this.searchForm.value.searchvalue :  "",
       "skill": this.searchForm.value.searchby == "skill" ? this.searchForm.value.searchvalue :  "",
     }
-    /// Mocking code to check the functionality. For Real Scenario the below searchService code will be called.
-    if (payload.empId)
-         this.profiles=mockprofiles.filter( Profile => Profile.empId === payload.empId);
-
-    //payload name
-    else if(payload.name)
-          this.profiles=mockprofiles.filter( Profile => Profile.name === payload.name);
-
-    //payload skill
-    else
-       this.profiles=mockprofiles.filter( Profile=> Profile.skills.filter(UserSkill => UserSkill.name==payload.skill)[0].name==payload.skill);
-
 
     this._searchService.search(payload).subscribe(
-      res => {      
-        
+      res => {
         this.profiles = res;
         this.searchPerformed = true;
       },
       err => {
-        
+        console.log(err);
       }
     );
   }
-
 }

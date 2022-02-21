@@ -3,14 +3,16 @@
     flex-direction: row;
     justify-content: space-between;
     width: 225px;
-    margin-bottom: 10px;;
+    margin-bottom: 10px;
+    ;
 }
 
 .seach-input-container {
     display: flex;
     flex-direction: row;
-    width: 250px;
-    margin-bottom: 10px;;
+    margin-bottom: 10px;
+    flex: 1;
+    width: 500px;
 }
 
 .search-input {
@@ -19,7 +21,15 @@
 
 .search-result-item {
     border: 1px solid lightblue;
-    margin-bottom: 5px;;
-    padding: 3px;;
+    margin-bottom: 5px;
+    padding: 3px;
 }
 
+div.seach-container {
+    padding: 10px;
+    width: 15%;
+}
+
+button.search {
+    margin-left: 10px;
+}

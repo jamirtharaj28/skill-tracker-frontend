@@ -5,8 +5,26 @@
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
+}
 
 :host .content {
     margin: 5px 25px;
+}
+
+div.toolbar img {
+    height: 30px;
+}
+
+div.toolbar h3 {
+    font-size: 30px;
+    display: inline;
+}
+
+div.spacer {
+    background: #cbc0c0;
+    height: 2px;
+}
+
+div.toolbar {
+    text-align: center;
 }
